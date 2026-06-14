@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import researchRoutes from "./routes/research.routes.js";
+import searchRoutes from "./routes/search.routes.js";
 
 dotenv.config();
 
@@ -12,8 +13,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/research", researchRoutes);
+app.use("/api/search", searchRoutes);
 
-//console.log(process.env.GEMINI_API_KEY);
+
 
 app.get('/', (req,res) => {
     res.json({

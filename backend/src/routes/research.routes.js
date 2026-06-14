@@ -1,5 +1,6 @@
 import express from 'express';
 import { generateContent } from '../services/gemini.js';
+import { runResearchAgent } from "../agents/researchAgent.js";
 
 const router = express.Router();
 
@@ -7,11 +8,11 @@ router.post("/", async (req, res) => {
     try {
         const { query } = req.body;
 
-        const response = await generateContent(query);
+        const response = await runResearchAgent(query);
 
         res.json({
             success: true,
-            response,
+            ...response,
         });
     } catch (error) {
         console.error("Error generating content:", error);
