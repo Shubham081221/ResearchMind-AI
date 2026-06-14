@@ -5,15 +5,20 @@ function App() {
 
   const [query, setQuery] = useState("");
   const [report, setReport] = useState("");
+  const [sources, setSources] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleResearch = async () => {
+    setLoading(true);
     try {
       const { data } = await api.post("/research", { query });
 
       setReport(data.report);
+      setSources(data.sources);
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   };
 
   return (
@@ -27,11 +32,21 @@ function App() {
           onChange={(e) => setQuery(e.target.value)}
         />
 
-      <button onClick={handleResearch}>Research</button>
+      <button onClick={handleResearch} disabled={loading}>
+        {loading ? "Researching..." : "Research"}
+      </button>
 
       <hr />
 
-      <pre>{report}</pre>
+      {report && (
+        <div>
+          <h2>Research Report</h2>
+
+          <pre>{report}</pre>
+        </div>  
+      )}
+
+      
     </div>
   )
 }
