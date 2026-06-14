@@ -12,19 +12,49 @@ export async function runResearchAgent(query) {
             content: ${source.content}`
         ).join("\n\n");
 
-    const prompt = `You are an expert research analyst.
-                    Research Topic: ${query}
+    // const prompt = `You are an expert research analyst.
+    //                 Research Topic: ${query}
                     
-                    Sources:${content}
+    //                 Sources:${content}
                     
-                    Generate a detailed report with:
+    //                 Generate a detailed report with:
 
-                    1. Executive Summary
-                    2. Key Findings
-                    3. Important Trends
-                    4. Challenges
-                    5. Future Outlook
-                    6. References`    ;
+    //                 1. Executive Summary
+    //                 2. Key Findings
+    //                 3. Important Trends
+    //                 4. Challenges
+    //                 5. Future Outlook
+    //                 6. References`    ;
+
+    const prompt = `
+                    You are a senior research analyst.
+
+                    Research Topic:
+                    ${query}
+
+                    Sources:
+                    ${content}
+
+                    Create a professional research report.
+
+                    Format:
+
+                    # Executive Summary
+
+                    # Key Findings
+
+                    # Trends and Insights
+
+                    # Challenges and Risks
+
+                    # Future Outlook
+
+                    # Conclusion
+
+                    # References
+
+                    Use information only from the provided sources.
+               `;
 
     const report = await generateContent(prompt);
     
