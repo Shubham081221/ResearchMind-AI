@@ -1,5 +1,6 @@
 import { searchWeb } from "../services/tavily.js";
 import { generateContent } from "../services/gemini.js";
+import { supabase } from "../db/supabase.js";
 
 export async function runResearchAgent(query) {
 
@@ -57,10 +58,22 @@ export async function runResearchAgent(query) {
                `;
 
     const report = await generateContent(prompt);
+
+try {
+    await supabase
+        .from("research_sessions")
+        .insert({
+            query,
+            report,
+        });
+} catch (error) {
+    console.error("Supabase Save Error:", error);
+}
+
+return {
+    report,
+    sources,
+};
     
-    return {
-        report,
-        sources,
-    };
-    
+       
 }

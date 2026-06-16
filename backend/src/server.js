@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import researchRoutes from "./routes/research.routes.js";
 import searchRoutes from "./routes/search.routes.js";
+import pdfRoutes from "./routes/pdf.routes.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/api/research", researchRoutes);
 app.use("/api/search", searchRoutes);
+app.use("/api/pdf", pdfRoutes);
 
 
 
