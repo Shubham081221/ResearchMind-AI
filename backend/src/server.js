@@ -13,7 +13,7 @@ const app = express();
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        "https://researchmindai.netlify.app/"
+        "https://researchmindai.netlify.app",
     ],
     credentials: true,
 }));
